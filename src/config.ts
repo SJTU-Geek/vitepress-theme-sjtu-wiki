@@ -116,8 +116,9 @@ function genConfig() {
       config(md) {
         md.use(mdPangu)
         md.use(footnote)
-        md.use(katex)
+        // md.use(katex)
       },
+      math: true
     },
     head: [
       [
