@@ -39,23 +39,31 @@ const authors = computed(() => {
   return author
 })
 
-// 计算显示的作者信息
+const MAX_DISPLAY_AUTHORS = 3
+
+// 显示前 N 个作者，超过则在尾部加「等」
 const displayAuthors = computed(() => {
-  if (authors.value.length === 0) {
-    return '匿名'
-  }
-  else {
-    return `${authors.value.join(', ')} 等`
-  }
+  const list = authors.value
+  if (list.length === 0) return '匿名'
+  if (list.length <= MAX_DISPLAY_AUTHORS) return list.join(', ')
+  return `${list.slice(0, MAX_DISPLAY_AUTHORS).join(', ')} 等`
 })
+
+// 悬浮提示用的完整作者列表（超过显示上限时才提供）
+const allAuthorsTooltip = computed(() =>
+  authors.value.length > MAX_DISPLAY_AUTHORS ? authors.value.join(', ') : undefined,
+)
 </script>
 
 <template>
   <div class="mb-10 mt-4 flex flex-wrap gap-4">
-    <div v-if="!theme.HideAuthors" class="inline-flex items-center gap-1">
+    <div
+      v-if="!theme.HideAuthors"
+      class="inline-flex items-center gap-1"
+    >
       <span class="i-octicon:person" />
       <span>作者:</span>
-      <span>{{ displayAuthors }}</span>
+      <span :title="allAuthorsTooltip" :class="{ 'authors-truncated': allAuthorsTooltip }">{{ displayAuthors }}</span>
     </div>
 
     <div v-if="!theme.HideLastUpdated" class="inline-flex items-center gap-1">
@@ -68,3 +76,12 @@ const displayAuthors = computed(() => {
     </ClientOnly>
   </div>
 </template>
+
+<style scoped>
+/* 截断时给个虚线下划线提示「可悬浮看完整列表」 */
+.authors-truncated {
+  text-decoration: underline dotted;
+  text-underline-offset: 6px;
+  cursor: help;
+}
+</style>
