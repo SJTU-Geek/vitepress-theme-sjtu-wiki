@@ -22,6 +22,12 @@ const { frontmatter, theme } = useData()
   <AppearanceToggle>
     <Layout>
       <template #doc-before>
+        <div
+          v-if="theme.topBannerHtml"
+          class="sjtuwiki-top-banner"
+          role="alert"
+          v-html="theme.topBannerHtml"
+        />
         <div class="vp-doc">
           <h1>{{ frontmatter.title }}</h1>
           <PageInfo />
@@ -47,5 +53,26 @@ const { frontmatter, theme } = useData()
 :root {
   --vp-font-family-base: sans-serif;
   --vp-font-family-mono: monospace;
+}
+
+.sjtuwiki-top-banner {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--vp-c-danger-soft, rgb(217 52 63 / 14%));
+  border-left: 4px solid var(--vp-c-danger-3, #d9343f);
+  color: var(--vp-c-text-1);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.sjtuwiki-top-banner a {
+  color: var(--vp-c-danger-1, #b1252e);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.sjtuwiki-top-banner a:hover {
+  opacity: 0.85;
 }
 </style>

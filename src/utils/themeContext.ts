@@ -51,6 +51,8 @@ export interface ThemeContext {
   disclaimerStatusExpiration?: number
   locales?: { [key: string]: LocalesConfig } // i18n
   additionalHead?: HeadConfig[] // Additional head elements
+  // 每页顶部的提示横幅（红底警示）。空/未设则不渲染。支持内联 HTML（链接、emoji 等）。
+  topBannerHtml?: string
   // VitePress 原生 themeConfig 字段透传：在 theme 生成的 themeConfig 之上做浅合并，
   // 用户值优先，可以覆盖 theme 内置的 search / returnToTopLabel / notFound 等。
   extraThemeConfig?: Partial<DefaultTheme.Config>

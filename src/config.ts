@@ -22,6 +22,7 @@ export interface PjtsThemeConfig extends DefaultTheme.Config {
   enableChangeLog?: boolean
   enableFontSwitcher?: boolean
   enableSuggestionBox?: boolean
+  topBannerHtml?: string
   suggestionBoxImageUrl?: string
   suggestionBoxLinkUrl?: string
   suggestionBoxImageAlt?: string
@@ -101,6 +102,7 @@ function genConfig() {
     disclaimerStatusExpiration,
     locales, // i18n
     additionalHead = [],
+    topBannerHtml,
     extraThemeConfig,
   } = themeConfig
 
@@ -164,6 +166,7 @@ function genConfig() {
       suggestionBoxImageAlt,
       enableChangeLog,
       enableFontSwitcher,
+      topBannerHtml,
       // https://vitepress.dev/reference/default-theme-config
       siteTitle: SiteTitle,
       logo: siteLogo,
